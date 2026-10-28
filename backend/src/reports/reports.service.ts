@@ -162,6 +162,6 @@ export class ReportsService {
       summary.addRow(['Satisfacción promedio', (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1)]);
     }
 
-    return workbook.xlsx.writeBuffer() as Promise<Buffer>;
+    return workbook.xlsx.writeBuffer() as unknown as Promise<Buffer>;
   }
 }

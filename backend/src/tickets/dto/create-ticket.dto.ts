@@ -17,4 +17,12 @@ export class CreateTicketDto {
   @IsEnum(Priority)
   @IsOptional()
   prioridad?: Priority;
+
+  @IsString()
+  @IsOptional()
+  sede?: string;
+
+  @IsString()
+  @IsOptional()
+  equipoDe?: string;
 }

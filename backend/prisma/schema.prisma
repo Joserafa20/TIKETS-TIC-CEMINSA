@@ -64,6 +64,8 @@ model Ticket {
   prioridad       Priority     @default(MEDIA)
   calificacion    Int?
   comentarioCalif String?
+  sede            String?
+  equipoDe        String?
   fechaApertura   DateTime     @default(now())
   fechaCierre     DateTime?
   updatedAt       DateTime     @updatedAt

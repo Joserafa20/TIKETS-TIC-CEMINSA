@@ -10,6 +10,20 @@ interface Category {
   icono?: string;
 }
 
+const SEDES = [
+  'Puesto de salud Paraiso',
+  'Puesto de salud Campo Bolivar',
+  'Puesto de salud CDV',
+  'Sede Administrativa',
+  'Puesto de salud la Peña',
+  'Puesto de salud Colombia',
+  'Puesto de salud Aguada de Pablo',
+  'Puesto de salud Gallego',
+  'Puesto de salud Cascajal',
+  'Puesto de salud Isabel Lopez',
+  'Puesto de salud Molineros',
+];
+
 const PRIORITIES = [
   { value: 'BAJA', label: 'Baja', color: 'text-green-600' },
   { value: 'MEDIA', label: 'Media', color: 'text-yellow-600' },
@@ -28,6 +42,8 @@ export default function NuevoTicketPage() {
     descripcion: '',
     categoriaId: '',
     prioridad: 'MEDIA',
+    sede: '',
+    equipoDe: '',
   });
 
   useEffect(() => {
@@ -71,7 +87,7 @@ export default function NuevoTicketPage() {
               value={form.titulo}
               onChange={handleChange}
               placeholder="Ej: La impresora no imprime en color"
-              className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             />
           </div>
 
@@ -84,7 +100,7 @@ export default function NuevoTicketPage() {
               value={form.descripcion}
               onChange={handleChange}
               placeholder="Describí el problema con el mayor detalle posible..."
-              className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"
+              className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"
             />
           </div>
 
@@ -95,7 +111,7 @@ export default function NuevoTicketPage() {
                 name="categoriaId"
                 value={form.categoriaId}
                 onChange={handleChange}
-                className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               >
                 <option value="">Seleccioná...</option>
                 {categories.map((c) => (
@@ -112,12 +128,40 @@ export default function NuevoTicketPage() {
                 name="prioridad"
                 value={form.prioridad}
                 onChange={handleChange}
-                className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               >
                 {PRIORITIES.map((p) => (
                   <option key={p.value} value={p.value}>{p.label}</option>
                 ))}
               </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Sede / Puesto de salud</label>
+              <select
+                name="sede"
+                value={form.sede}
+                onChange={handleChange}
+                className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              >
+                <option value="">Seleccioná la sede...</option>
+                {SEDES.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Equipo de</label>
+              <input
+                name="equipoDe"
+                value={form.equipoDe}
+                onChange={handleChange}
+                placeholder="Ej: Dr. Pérez / Facturación"
+                className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              />
             </div>
           </div>
 

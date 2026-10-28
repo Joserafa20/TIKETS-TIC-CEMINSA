@@ -4,7 +4,7 @@
 
 ---
 
-## Estado General: 🟢 En desarrollo — Fase 1
+## Estado General: 🟢 En desarrollo — Fase 3 completada
 
 ---
 
@@ -26,13 +26,15 @@
 - [ ] Módulo Adjuntos
 
 ## Fase 3 — Vistas Frontend
-- [x] Pantalla Login ✅
-- [ ] Portal Funcionario: Crear ticket
-- [ ] Portal Funcionario: Mis tickets (lista + detalle)
-- [ ] Vista Técnico: Bandeja de tickets (filtros y búsqueda)
-- [ ] Vista Técnico: Detalle de ticket (cambiar estado, asignar, comentar)
-- [ ] Vista Admin: Gestión de usuarios
-- [ ] Vista Admin: Gestión de categorías
+- [x] Pantalla Login ✅ (conectada a API, redirección por rol)
+- [x] AuthProvider + Zustand store + middleware de rutas ✅
+- [x] Sidebar con navegación contextual por rol ✅
+- [x] Portal Funcionario: Crear ticket ✅
+- [x] Portal Funcionario: Mis tickets (lista + detalle + calificación) ✅
+- [x] Vista Técnico: Bandeja de tickets (filtros por estado, métricas) ✅
+- [x] Vista Técnico/Admin: Detalle de ticket (cambiar estado, asignar, comentarios internos) ✅
+- [x] Vista Admin: Gestión de usuarios ✅
+- [x] Vista Admin: Gestión de categorías ✅
 
 ## Fase 4 — Notificaciones y Adjuntos
 - [ ] Configurar Zoho SMTP con @nestjs-modules/mailer

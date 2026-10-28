@@ -19,14 +19,14 @@
 - [ ] Layout base con sidebar y navbar
 
 ## Fase 2 — Core (Backend)
-- [ ] Módulo Categorías (CRUD completo)
-- [ ] Módulo Usuarios (CRUD + gestión de roles)
-- [ ] Módulo Tickets (CRUD completo)
-- [ ] Módulo Comentarios (públicos e internos)
+- [x] Módulo Categorías (CRUD completo) ✅
+- [x] Módulo Usuarios (CRUD + gestión de roles) ✅
+- [x] Módulo Tickets (CRUD completo) ✅
+- [x] Módulo Comentarios (públicos e internos) ✅ — integrado en TicketsService
 - [ ] Módulo Adjuntos
 
 ## Fase 3 — Vistas Frontend
-- [ ] Pantalla Login
+- [x] Pantalla Login ✅
 - [ ] Portal Funcionario: Crear ticket
 - [ ] Portal Funcionario: Mis tickets (lista + detalle)
 - [ ] Vista Técnico: Bandeja de tickets (filtros y búsqueda)

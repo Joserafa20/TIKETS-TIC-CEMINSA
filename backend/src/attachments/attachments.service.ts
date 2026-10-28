@@ -65,7 +65,7 @@ export class AttachmentsService {
 
   private async uploadToCloudinary(file: Express.Multer.File): Promise<string> {
     const formData = new FormData();
-    const blob = new Blob([file.buffer], { type: file.mimetype });
+    const blob = new Blob([new Uint8Array(file.buffer)], { type: file.mimetype });
     formData.append('file', blob, file.originalname);
     formData.append('upload_preset', this.uploadPreset);
     formData.append('folder', 'tickets-tic');

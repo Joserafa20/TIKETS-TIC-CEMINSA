@@ -9,6 +9,8 @@ import { UsersModule } from './users/users.module.js';
 import { TicketsModule } from './tickets/tickets.module.js';
 import { NotificationsModule } from './notifications/notifications.module.js';
 import { AttachmentsModule } from './attachments/attachments.module.js';
+import { DashboardModule } from './dashboard/dashboard.module.js';
+import { ReportsModule } from './reports/reports.module.js';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { AttachmentsModule } from './attachments/attachments.module.js';
     TicketsModule,
     NotificationsModule,
     AttachmentsModule,
+    DashboardModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,7 +4,7 @@
 
 ---
 
-## Estado General: 🟢 En desarrollo — Fase 4 completada
+## Estado General: 🟢 En desarrollo — Fase 5 completada
 
 ---
 
@@ -48,12 +48,11 @@
 - [ ] Configurar variables MAIL_* en .env para activar envío real
 
 ## Fase 5 — Dashboard y Reportes
-- [ ] Dashboard: widgets de métricas principales
-- [ ] Gráfico: tickets por estado
-- [ ] Gráfico: tickets por categoría
-- [ ] Gráfico: carga por técnico
-- [ ] Exportar reporte mensual en PDF
-- [ ] Exportar reporte mensual en Excel
+- [x] DashboardModule: métricas agregadas (totalTickets, byStatus, byCategory, byPriority, byTechnician, avgResolutionHours, avgRating) ✅
+- [x] ReportsModule: generación PDF (pdfkit) y Excel (exceljs) con filtro de fechas ✅
+- [x] Frontend: página /reportes con KPI cards y 4 gráficos Recharts ✅
+- [x] Sidebar: enlace Reportes para ADMIN y TECNICO ✅
+- [x] Botones descarga PDF y Excel con rango de fechas ✅
 
 ## Fase 6 — Deploy y Pruebas
 - [ ] Deploy base de datos en Neon
@@ -72,3 +71,4 @@
 | 2026-10-27 | Planificación general y creación de CLAUDE.md |
 | 2026-10-28 | Fase 1: NestJS + Next.js 14 scaffolding, Prisma schema completo, PrismaModule, main.ts con CORS y ValidationPipe |
 | 2026-10-28 | Fase 4: NotificationsService (Nodemailer/Zoho), AttachmentsModule (Cloudinary + fallback base64), AttachmentUploader frontend |
+| 2026-10-28 | Fase 5: DashboardModule + ReportsModule (PDF/Excel), página /reportes con Recharts (PieChart, BarChart), botones descarga |

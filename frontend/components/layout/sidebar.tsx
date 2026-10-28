@@ -19,6 +19,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: '/nuevo-ticket', label: 'Nuevo ticket',   icon: '➕', roles: ['ADMIN', 'TECNICO', 'SOLICITANTE'] },
   { href: '/usuarios',     label: 'Usuarios',       icon: '👥', roles: ['ADMIN'] },
   { href: '/categorias',   label: 'Categorías',     icon: '🗂️',  roles: ['ADMIN'] },
+  { href: '/reportes',     label: 'Reportes',       icon: '📈', roles: ['ADMIN', 'TECNICO'] },
 ];
 
 export function Sidebar() {

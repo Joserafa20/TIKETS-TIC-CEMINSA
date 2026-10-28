@@ -26,6 +26,9 @@ export default function UsuariosPage() {
   const [form, setForm] = useState({ nombre: '', email: '', password: '', rol: 'SOLICITANTE', area: '' });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [resetId, setResetId] = useState<string | null>(null);
+  const [newPassword, setNewPassword] = useState('');
+  const [resetting, setResetting] = useState(false);
 
   async function load() {
     api.get('/users').then((r) => setUsers(r.data)).catch(() => null).finally(() => setLoading(false));
@@ -52,6 +55,20 @@ export default function UsuariosPage() {
   async function handleDeactivate(id: string) {
     await api.delete(`/users/${id}`).catch(() => null);
     await load();
+  }
+
+  async function handleActivate(id: string) {
+    await api.patch(`/users/${id}`, { activo: true }).catch(() => null);
+    await load();
+  }
+
+  async function handleResetPassword(id: string) {
+    if (!newPassword.trim()) return;
+    setResetting(true);
+    await api.patch(`/users/${id}`, { password: newPassword }).catch(() => null);
+    setResetId(null);
+    setNewPassword('');
+    setResetting(false);
   }
 
   return (
@@ -142,14 +159,41 @@ export default function UsuariosPage() {
                       {u.activo ? 'Activo' : 'Inactivo'}
                     </span>
                   </td>
-                  <td className="px-4 py-3">
-                    {u.activo && (
+                  <td className="px-4 py-3 space-y-1">
+                    <div className="flex gap-3">
                       <button
-                        onClick={() => handleDeactivate(u.id)}
-                        className="text-xs text-red-400 hover:text-red-600 transition"
+                        onClick={() => { setResetId(resetId === u.id ? null : u.id); setNewPassword(''); }}
+                        className="text-xs text-blue-500 hover:text-blue-700 transition"
                       >
-                        Desactivar
+                        Cambiar clave
                       </button>
+                      {u.activo ? (
+                        <button onClick={() => handleDeactivate(u.id)} className="text-xs text-red-400 hover:text-red-600 transition">
+                          Desactivar
+                        </button>
+                      ) : (
+                        <button onClick={() => handleActivate(u.id)} className="text-xs text-green-500 hover:text-green-700 transition">
+                          Activar
+                        </button>
+                      )}
+                    </div>
+                    {resetId === u.id && (
+                      <div className="flex gap-2 mt-1">
+                        <input
+                          type="password"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          placeholder="Nueva contraseña"
+                          className="px-2 py-1 text-xs rounded border border-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-400 w-36"
+                        />
+                        <button
+                          onClick={() => handleResetPassword(u.id)}
+                          disabled={resetting || !newPassword.trim()}
+                          className="px-2 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded transition disabled:opacity-60"
+                        >
+                          {resetting ? '...' : 'Guardar'}
+                        </button>
+                      </div>
                     )}
                   </td>
                 </tr>

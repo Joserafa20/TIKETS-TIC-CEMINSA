@@ -66,6 +66,7 @@ export default function AdminTicketDetailPage() {
     finally { setLoading(false); }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [id]);
 
   async function handleUpdate(patch: Record<string, unknown>) {

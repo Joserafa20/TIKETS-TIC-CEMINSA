@@ -57,6 +57,7 @@ export default function TicketDetailPage() {
     finally { setLoading(false); }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [id]);
 
   async function handleComment(e: React.FormEvent) {

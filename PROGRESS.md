@@ -4,18 +4,18 @@
 
 ---
 
-## Estado General: 🟡 En planificación
+## Estado General: 🟢 En desarrollo — Fase 1
 
 ---
 
 ## Fase 1 — Fundación
-- [ ] Setup proyecto NestJS
-- [ ] Configurar Prisma + conexión Neon
-- [ ] Ejecutar migraciones (schema inicial)
+- [x] Setup proyecto NestJS
+- [x] Configurar Prisma + conexión Neon (schema.prisma completo)
+- [x] Ejecutar migraciones (schema inicial) ✅ 20261028134116_init
 - [ ] Módulo Auth: registro, login, JWT
 - [ ] Guards: JwtAuthGuard + RolesGuard
-- [ ] Setup proyecto Next.js 14 (App Router)
-- [ ] Configurar Tailwind CSS + shadcn/ui
+- [x] Setup proyecto Next.js 14 (App Router)
+- [x] Configurar Tailwind CSS + shadcn/ui base
 - [ ] Layout base con sidebar y navbar
 
 ## Fase 2 — Core (Backend)
@@ -66,3 +66,4 @@
 | Fecha | Qué se hizo |
 |---|---|
 | 2026-10-27 | Planificación general y creación de CLAUDE.md |
+| 2026-10-28 | Fase 1: NestJS + Next.js 14 scaffolding, Prisma schema completo, PrismaModule, main.ts con CORS y ValidationPipe |

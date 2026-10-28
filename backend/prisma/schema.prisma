@@ -1,0 +1,121 @@
+// backend/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  TECNICO
+  SOLICITANTE
+}
+
+enum TicketStatus {
+  ABIERTO
+  EN_PROCESO
+  PENDIENTE
+  RESUELTO
+  CERRADO
+}
+
+enum Priority {
+  BAJA
+  MEDIA
+  ALTA
+  CRITICA
+}
+
+model User {
+  id        String   @id @default(uuid())
+  nombre    String
+  email     String   @unique
+  password  String
+  rol       Role     @default(SOLICITANTE)
+  area      String?
+  activo    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  ticketsCreados   Ticket[]       @relation("Solicitante")
+  ticketsAsignados Ticket[]       @relation("Tecnico")
+  comentarios      Comment[]
+  notificaciones   Notification[]
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  nombre      String
+  descripcion String?
+  icono       String?
+  activo      Boolean  @default(true)
+  tickets     Ticket[]
+}
+
+model Ticket {
+  id              String       @id @default(uuid())
+  titulo          String
+  descripcion     String
+  estado          TicketStatus @default(ABIERTO)
+  prioridad       Priority     @default(MEDIA)
+  calificacion    Int?
+  comentarioCalif String?
+  fechaApertura   DateTime     @default(now())
+  fechaCierre     DateTime?
+  updatedAt       DateTime     @updatedAt
+
+  categoria   Category @relation(fields: [categoriaId], references: [id])
+  categoriaId String
+
+  solicitante   User   @relation("Solicitante", fields: [solicitanteId], references: [id])
+  solicitanteId String
+
+  tecnico   User?   @relation("Tecnico", fields: [tecnicoId], references: [id])
+  tecnicoId String?
+
+  comentarios    Comment[]
+  adjuntos       Attachment[]
+  notificaciones Notification[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  contenido String
+  esInterno Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId String
+
+  autor   User   @relation(fields: [autorId], references: [id])
+  autorId String
+}
+
+model Attachment {
+  id        String   @id @default(uuid())
+  nombre    String
+  url       String
+  tipo      String
+  tamanio   Int
+  createdAt DateTime @default(now())
+
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId String
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  tipo      String
+  mensaje   String
+  leida     Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  usuario   User   @relation(fields: [usuarioId], references: [id])
+  usuarioId String
+
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId String
+}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useErrorStore } from '@/store/error.store';
+import { useAuthStore } from '@/store/auth.store';
 
 const api = axios.create({
   baseURL: (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3002') + '/api',
@@ -75,6 +76,12 @@ api.interceptors.response.use(
     }
 
     const status: number | undefined = error.response?.status;
+
+    // If 401 and no authenticated user, auth-provider is already handling the redirect
+    if (status === 401 && !useAuthStore.getState().user) {
+      return Promise.reject(error);
+    }
+
     const serverMessage: string | undefined =
       error.response?.data?.message ?? error.response?.data?.error;
 

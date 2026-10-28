@@ -8,7 +8,7 @@ import { useAuthStore } from '@/store/auth.store';
 const PUBLIC_ROUTES = ['/login'];
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { setUser, setLoading, user } = useAuthStore();
+  const { setUser } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
 

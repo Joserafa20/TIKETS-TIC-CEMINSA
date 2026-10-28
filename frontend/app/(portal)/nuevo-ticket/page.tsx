@@ -24,12 +24,6 @@ const SEDES = [
   'Puesto de salud Molineros',
 ];
 
-const PRIORITIES = [
-  { value: 'BAJA', label: 'Baja', color: 'text-green-600' },
-  { value: 'MEDIA', label: 'Media', color: 'text-yellow-600' },
-  { value: 'ALTA', label: 'Alta', color: 'text-orange-600' },
-  { value: 'CRITICA', label: 'Crítica', color: 'text-red-600' },
-];
 
 export default function NuevoTicketPage() {
   const router = useRouter();
@@ -104,37 +98,21 @@ export default function NuevoTicketPage() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Categoría <span className="text-red-500">*</span></label>
-              <select
-                name="categoriaId"
-                value={form.categoriaId}
-                onChange={handleChange}
-                className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-              >
-                <option value="">Seleccioná...</option>
-                {categories.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.icono ? `${c.icono} ` : ''}{c.nombre}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Prioridad</label>
-              <select
-                name="prioridad"
-                value={form.prioridad}
-                onChange={handleChange}
-                className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-              >
-                {PRIORITIES.map((p) => (
-                  <option key={p.value} value={p.value}>{p.label}</option>
-                ))}
-              </select>
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Categoría <span className="text-red-500">*</span></label>
+            <select
+              name="categoriaId"
+              value={form.categoriaId}
+              onChange={handleChange}
+              className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            >
+              <option value="">Seleccioná...</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.icono ? `${c.icono} ` : ''}{c.nombre}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="grid grid-cols-2 gap-4">

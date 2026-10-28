@@ -33,6 +33,7 @@ interface Ticket {
 }
 
 const STATUSES = ['ABIERTO', 'EN_PROCESO', 'PENDIENTE', 'RESUELTO', 'CERRADO'];
+const PRIORITIES = ['BAJA', 'MEDIA', 'ALTA', 'CRITICA'];
 
 const STATUS_COLORS: Record<string, string> = {
   ABIERTO:    'bg-blue-100 text-blue-700',
@@ -173,7 +174,14 @@ export default function AdminTicketDetailPage() {
 
             <div>
               <p className="text-xs font-medium text-slate-400 uppercase mb-1">Prioridad</p>
-              <p className="text-sm text-slate-700">{ticket.prioridad}</p>
+              <select
+                value={ticket.prioridad}
+                disabled={saving}
+                onChange={(e) => handleUpdate({ prioridad: e.target.value })}
+                className="w-full px-2 py-1.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {PRIORITIES.map((p) => <option key={p} value={p}>{p}</option>)}
+              </select>
             </div>
 
             <div>

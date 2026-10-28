@@ -13,11 +13,13 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @Roles(Role.ADMIN, Role.TECNICO)
   findAll() {
     return this.usersService.findAll();
   }
 
   @Get(':id')
+  @Roles(Role.ADMIN, Role.TECNICO)
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }

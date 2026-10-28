@@ -12,8 +12,8 @@
 - [x] Setup proyecto NestJS
 - [x] Configurar Prisma + conexión Neon (schema.prisma completo)
 - [x] Ejecutar migraciones (schema inicial) ✅ 20261028134116_init
-- [ ] Módulo Auth: registro, login, JWT
-- [ ] Guards: JwtAuthGuard + RolesGuard
+- [x] Módulo Auth: registro, login, JWT ✅
+- [x] Guards: JwtAuthGuard + RolesGuard ✅
 - [x] Setup proyecto Next.js 14 (App Router)
 - [x] Configurar Tailwind CSS + shadcn/ui base
 - [ ] Layout base con sidebar y navbar

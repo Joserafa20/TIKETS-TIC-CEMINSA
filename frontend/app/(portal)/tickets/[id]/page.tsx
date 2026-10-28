@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import { useAuthStore } from '@/store/auth.store';
+import { AttachmentUploader } from '@/components/tickets/attachment-uploader';
 
 interface User { id: string; nombre: string; }
 
@@ -28,6 +29,7 @@ interface Ticket {
   solicitante: { nombre: string; email: string; area?: string };
   tecnico?: { id: string; nombre: string };
   comentarios: Comment[];
+  adjuntos: { id: string; nombre: string; url: string; tipo: string; tamanio: number }[];
 }
 
 const STATUSES = ['ABIERTO', 'EN_PROCESO', 'PENDIENTE', 'RESUELTO', 'CERRADO'];
@@ -206,6 +208,14 @@ export default function AdminTicketDetailPage() {
                 <p className="text-sm">{'⭐'.repeat(ticket.calificacion)} ({ticket.calificacion}/5)</p>
               </div>
             )}
+
+            <div className="border-t border-slate-100 pt-4">
+              <AttachmentUploader
+                ticketId={ticket.id}
+                attachments={ticket.adjuntos ?? []}
+                onUploaded={(a) => setTicket((prev) => prev ? { ...prev, adjuntos: [...(prev.adjuntos ?? []), a] } : prev)}
+              />
+            </div>
           </div>
         </div>
       </div>

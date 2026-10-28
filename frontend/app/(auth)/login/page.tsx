@@ -20,8 +20,8 @@ export default function LoginPage() {
 
     try {
       const res = await api.post('/auth/login', { email, password });
-      setUser(res.data.user);
-      const dest = res.data.user.rol === 'SOLICITANTE' ? '/mis-tickets' : '/dashboard';
+      setUser(res.data);
+      const dest = res.data.rol === 'SOLICITANTE' ? '/mis-tickets' : '/dashboard';
       router.replace(dest);
     } catch {
       setError('Correo o contraseña incorrectos.');

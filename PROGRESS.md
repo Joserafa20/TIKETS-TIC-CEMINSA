@@ -4,7 +4,7 @@
 
 ---
 
-## Estado General: 🟢 En desarrollo — Fase 3 completada
+## Estado General: 🟢 En desarrollo — Fase 4 completada
 
 ---
 
@@ -37,13 +37,15 @@
 - [x] Vista Admin: Gestión de categorías ✅
 
 ## Fase 4 — Notificaciones y Adjuntos
-- [ ] Configurar Zoho SMTP con @nestjs-modules/mailer
-- [ ] Email: ticket creado
-- [ ] Email: ticket asignado
-- [ ] Email: nuevo comentario
-- [ ] Email: ticket resuelto (con link de calificación)
-- [ ] Email: ticket cerrado
-- [ ] Subida de archivos adjuntos (Cloudinary o base64)
+- [x] Módulo NotificationsService con Nodemailer ✅
+- [x] Email: ticket creado (solicitante + técnicos) ✅
+- [x] Email: ticket asignado (técnico) ✅
+- [x] Email: nuevo comentario público ✅
+- [x] Email: ticket resuelto (con link de calificación) ✅
+- [x] Email: ticket cerrado ✅
+- [x] Módulo Attachments con Cloudinary (fallback base64) ✅
+- [x] Componente AttachmentUploader en frontend ✅
+- [ ] Configurar variables MAIL_* en .env para activar envío real
 
 ## Fase 5 — Dashboard y Reportes
 - [ ] Dashboard: widgets de métricas principales
@@ -69,3 +71,4 @@
 |---|---|
 | 2026-10-27 | Planificación general y creación de CLAUDE.md |
 | 2026-10-28 | Fase 1: NestJS + Next.js 14 scaffolding, Prisma schema completo, PrismaModule, main.ts con CORS y ValidationPipe |
+| 2026-10-28 | Fase 4: NotificationsService (Nodemailer/Zoho), AttachmentsModule (Cloudinary + fallback base64), AttachmentUploader frontend |

@@ -117,7 +117,7 @@ export default function ReportesPage() {
         <ChartCard title="Tickets por estado">
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
-              <Pie data={metrics.byStatus} dataKey="count" nameKey="estado" cx="50%" cy="50%" outerRadius={80} label={({ estado, count }) => `${estado} (${count})`}>
+              <Pie data={metrics.byStatus} dataKey="count" nameKey="estado" cx="50%" cy="50%" outerRadius={80} label={({ name, value }) => `${name} (${value})`}>
                 {metrics.byStatus.map((s) => (
                   <Cell key={s.estado} fill={STATUS_COLORS[s.estado] ?? '#94a3b8'} />
                 ))}

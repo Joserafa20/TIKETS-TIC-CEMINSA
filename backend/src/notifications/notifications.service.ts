@@ -16,6 +16,15 @@ export interface TicketEmailData {
   esInterno?: boolean;
 }
 
+function escHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 @Injectable()
 export class NotificationsService {
   private readonly logger = new Logger(NotificationsService.name);
@@ -82,11 +91,11 @@ export class NotificationsService {
     ${body}
     <div class="meta">
       <p><strong>Ticket:</strong> #${ticket.ticketId.slice(0, 8).toUpperCase()}</p>
-      <p><strong>Asunto:</strong> ${ticket.titulo}</p>
-      <p><strong>Categoría:</strong> ${ticket.categoria}</p>
-      <p><strong>Prioridad:</strong> ${ticket.prioridad}</p>
-      ${ticket.estado ? `<p><strong>Estado:</strong> ${ticket.estado}</p>` : ''}
-      ${ticket.tecnicoNombre ? `<p><strong>Técnico asignado:</strong> ${ticket.tecnicoNombre}</p>` : ''}
+      <p><strong>Asunto:</strong> ${escHtml(ticket.titulo)}</p>
+      <p><strong>Categoría:</strong> ${escHtml(ticket.categoria)}</p>
+      <p><strong>Prioridad:</strong> ${escHtml(ticket.prioridad)}</p>
+      ${ticket.estado ? `<p><strong>Estado:</strong> ${escHtml(ticket.estado)}</p>` : ''}
+      ${ticket.tecnicoNombre ? `<p><strong>Técnico asignado:</strong> ${escHtml(ticket.tecnicoNombre)}</p>` : ''}
     </div>
     <a href="${ticketUrl}" class="btn">Ver ticket</a>
   </div>
@@ -96,7 +105,7 @@ export class NotificationsService {
   }
 
   async notifyTicketCreated(data: TicketEmailData, technicianEmails: string[]) {
-    const body = `<p>Hola <strong>${data.solicitanteNombre}</strong>,</p>
+    const body = `<p>Hola <strong>${escHtml(data.solicitanteNombre)}</strong>,</p>
     <p>Tu solicitud de soporte ha sido registrada exitosamente. Nuestro equipo TIC la revisará y te notificará cuando sea asignada.</p>`;
 
     await this.send(
@@ -107,7 +116,7 @@ export class NotificationsService {
 
     if (technicianEmails.length > 0) {
       const bodyTech = `<p>Se ha creado un nuevo ticket en el sistema que requiere atención.</p>
-      <p><strong>Solicitante:</strong> ${data.solicitanteNombre} (${data.solicitanteEmail})</p>`;
+      <p><strong>Solicitante:</strong> ${escHtml(data.solicitanteNombre)} (${escHtml(data.solicitanteEmail)})</p>`;
       await this.send(
         technicianEmails,
         `[Soporte TIC] Nuevo ticket: ${data.titulo}`,
@@ -118,7 +127,7 @@ export class NotificationsService {
 
   async notifyTicketAssigned(data: TicketEmailData) {
     if (!data.tecnicoEmail) return;
-    const body = `<p>Hola <strong>${data.tecnicoNombre}</strong>,</p>
+    const body = `<p>Hola <strong>${escHtml(data.tecnicoNombre ?? '')}</strong>,</p>
     <p>Se te ha asignado el siguiente ticket para su atención:</p>`;
     await this.send(
       data.tecnicoEmail,
@@ -135,7 +144,7 @@ export class NotificationsService {
     if (recipients.length === 0) return;
 
     const body = `<p>Se ha añadido un nuevo comentario al ticket.</p>
-    ${data.comentario ? `<blockquote style="border-left:3px solid #1e40af;margin:12px 0;padding:8px 16px;background:#f8fafc;color:#475569">${data.comentario}</blockquote>` : ''}`;
+    ${data.comentario ? `<blockquote style="border-left:3px solid #1e40af;margin:12px 0;padding:8px 16px;background:#f8fafc;color:#475569">${escHtml(data.comentario)}</blockquote>` : ''}`;
 
     await this.send(
       recipients,
@@ -147,7 +156,7 @@ export class NotificationsService {
   async notifyTicketResolved(data: TicketEmailData) {
     const frontendUrl = this.config.get('FRONTEND_URL') ?? 'http://localhost:3000';
     const rateUrl = `${frontendUrl}/mis-tickets/${data.ticketId}`;
-    const body = `<p>Hola <strong>${data.solicitanteNombre}</strong>,</p>
+    const body = `<p>Hola <strong>${escHtml(data.solicitanteNombre)}</strong>,</p>
     <p>Tu ticket ha sido marcado como <strong>Resuelto</strong>. Por favor califica la atención recibida para ayudarnos a mejorar.</p>
     <a href="${rateUrl}" style="display:inline-block;margin-top:12px;padding:10px 20px;background:#16a34a;color:#fff;text-decoration:none;border-radius:8px;font-weight:600">⭐ Calificar atención</a>`;
 
@@ -159,7 +168,7 @@ export class NotificationsService {
   }
 
   async notifyTicketClosed(data: TicketEmailData) {
-    const body = `<p>Hola <strong>${data.solicitanteNombre}</strong>,</p>
+    const body = `<p>Hola <strong>${escHtml(data.solicitanteNombre)}</strong>,</p>
     <p>Tu ticket ha sido cerrado. Si el problema persiste, no dudes en abrir un nuevo ticket.</p>`;
 
     await this.send(

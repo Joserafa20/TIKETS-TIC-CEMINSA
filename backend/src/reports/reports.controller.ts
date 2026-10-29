@@ -1,10 +1,20 @@
-import { Controller, Get, Query, Res, UseGuards } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query, Res, UseGuards } from '@nestjs/common';
 import type { Response } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from '../auth/guards/roles.guard.js';
 import { Roles } from '../auth/decorators/roles.decorator.js';
 import { Role } from '@prisma/client';
 import { ReportsService } from './reports.service.js';
+
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+function validDate(s: string | undefined): string | undefined {
+  if (!s) return undefined;
+  if (!ISO_DATE.test(s) || isNaN(new Date(s).getTime())) {
+    throw new BadRequestException(`Fecha inválida: ${s}. Use formato YYYY-MM-DD.`);
+  }
+  return s;
+}
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.ADMIN, Role.TECNICO)
@@ -14,7 +24,7 @@ export class ReportsController {
 
   @Get('pdf')
   async pdf(@Query('from') from: string, @Query('to') to: string, @Res() res: Response) {
-    const buffer = await this.service.generatePdf(from, to);
+    const buffer = await this.service.generatePdf(validDate(from), validDate(to));
     res.set({
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="reporte-tickets.pdf"`,
@@ -25,7 +35,7 @@ export class ReportsController {
 
   @Get('excel')
   async excel(@Query('from') from: string, @Query('to') to: string, @Res() res: Response) {
-    const buffer = await this.service.generateExcel(from, to);
+    const buffer = await this.service.generateExcel(validDate(from), validDate(to));
     res.set({
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Content-Disposition': `attachment; filename="reporte-tickets.xlsx"`,
